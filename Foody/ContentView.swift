@@ -8,14 +8,33 @@
 import SwiftUI
 
 struct ContentView: View {
+    @State private var showSplash = true
+    @AppStorage("showOnboard") private var showOnboard: Bool = true
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
+        Group {
+            if showSplash {
+                SplashScreen()
+                    .onAppear {
+                        withAnimation {
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
+                                showSplash = false
+                            }
+                        }
+                    }
+            }
+            else if showOnboard {
+                OnboardingScreen(onClose: {showOnboard.toggle()})
+            }
+            else {
+                VStack {
+                    Image(systemName: "globe")
+                        .imageScale(.large)
+                        .foregroundStyle(.tint)
+                    Text("Hello, world!")
+                }
+                .padding()
+            }
         }
-        .padding()
     }
 }
 
