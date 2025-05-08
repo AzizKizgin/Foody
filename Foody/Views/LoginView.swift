@@ -35,7 +35,7 @@ struct LoginView: View {
 
                 FormButton(title: "Login") {
                     viewModel.login { user in
-                        if let user {
+                        if user != nil {
                             islogin = true
                         }
                     }
@@ -52,6 +52,13 @@ struct LoginView: View {
             
         }
         .frame(maxWidth: .infinity,maxHeight: .infinity)
+        .alert(
+            viewModel.errorMessage,
+            isPresented: $viewModel.showError) {
+                Button("Ok") {
+                    
+                }
+            }
     }
 }
 
