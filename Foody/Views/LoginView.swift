@@ -8,35 +8,37 @@
 import SwiftUI
 
 struct LoginView: View {
-    @State var email: String = ""
-    @State var password: String = ""
-    @State var shouldRemember: Bool = false
-    @State var isChecked: Bool = false
+    @StateObject private var viewModel: LoginViewModel
+    @AppStorage("isLogin") private var islogin = false
+    init() {
+        let service = DIContainer.shared.container.resolve(
+            AuthServiceProtocol.self
+        )!
+        _viewModel = StateObject(wrappedValue: LoginViewModel(service: service))
+    }
     var body: some View {
         VStack {
             FormMessage(title: "Login", content: "Please sign in to your account")
             Spacer()
             VStack(spacing: 20) {
                 VStack {
-                    TextInput(title: "Email", text: $email)
-                    TextInput(title: "Password", text: $password)
+                    TextInput(title: "Email", text: $viewModel.info.email)
+                    TextInput(title: "Password", text: $viewModel.info.password)
                 }
                 HStack {
                     Checkbox(
-                        isChecked: isChecked,
-                        onCheck: {isChecked.toggle()
-                        },
+                        isChecked: viewModel.shouldRemember,
+                        onCheck: {viewModel.shouldRemember.toggle()},
                         text: "Remember me")
                     Spacer()
-                    NavigationLink {
-                        ForgotPasswordView()
-                    } label: {
-                        Text("Forgot Password?")
-                    }
                 }
 
                 FormButton(title: "Login") {
-                    
+                    viewModel.login { user in
+                        if let user {
+                            islogin = true
+                        }
+                    }
                 }
                 NavigationLink {
                     RegisterView()
