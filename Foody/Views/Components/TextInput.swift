@@ -27,7 +27,7 @@ struct TextInput: View {
                     }
                 }
                 .padding()
-                .background(Color.accent.opacity(0.2))
+                .background(Color.accent.opacity(0.1))
                 .cornerRadius(10)
                 .overlay(
                     RoundedRectangle(cornerRadius: 10)
