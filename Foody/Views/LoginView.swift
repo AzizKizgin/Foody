@@ -47,11 +47,9 @@ struct LoginView: View {
             }
             .padding()
             .frame(maxHeight: .infinity)
-            .background(RoundedRectangle(cornerRadius: 20).fill(Color(.systemBackground)).ignoresSafeArea())
             
         }
         .frame(maxWidth: .infinity,maxHeight: .infinity)
-        .background(.accent)
     }
 }
 

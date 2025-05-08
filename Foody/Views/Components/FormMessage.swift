@@ -17,7 +17,6 @@ struct FormMessage: View {
                 .bold()
             Text(content)
         }
-        .foregroundStyle(.white)
         .frame(height: 250)
     }
 }
