@@ -10,6 +10,7 @@ import SwiftUI
 struct ContentView: View {
     @State private var showSplash = true
     @AppStorage("showOnboard") private var showOnboard: Bool = true
+    @AppStorage("isLogin") private var islogin = false
     var body: some View {
         Group {
             if showSplash {
@@ -25,14 +26,11 @@ struct ContentView: View {
             else if showOnboard {
                 OnboardingScreen(onClose: {showOnboard.toggle()})
             }
+            else if islogin {
+                HomeView()
+            }
             else {
-                VStack {
-                    Image(systemName: "globe")
-                        .imageScale(.large)
-                        .foregroundStyle(.tint)
-                    Text("Hello, world!")
-                }
-                .padding()
+                LoginView()
             }
         }
     }
