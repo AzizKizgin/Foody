@@ -8,6 +8,6 @@
 import Foundation
 
 struct User: Decodable {
-    let name: String
-    let email: String
+    var name: String = ""
+    var email: String = ""
 }
