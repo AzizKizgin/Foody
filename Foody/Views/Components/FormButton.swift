@@ -19,7 +19,6 @@ struct FormButton: View {
                 .frame(height: 40)
         }
         .buttonStyle(.borderedProminent)
-        .tint(.purple)
     }
 }
 

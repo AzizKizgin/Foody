@@ -34,7 +34,7 @@ struct RegisterView: View {
             
         }
         .frame(maxWidth: .infinity,maxHeight: .infinity)
-        .background(.purple)
+        .background(.accent)
     }
 }
 
