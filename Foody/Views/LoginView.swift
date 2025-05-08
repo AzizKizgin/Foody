@@ -29,7 +29,7 @@ struct LoginView: View {
                         text: "Remember me")
                     Spacer()
                     NavigationLink {
-                        Text("Forget Password")
+                        ForgotPasswordView()
                     } label: {
                         Text("Forgot Password?")
                     }
