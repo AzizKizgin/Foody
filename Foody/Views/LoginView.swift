@@ -39,7 +39,7 @@ struct LoginView: View {
                     
                 }
                 NavigationLink {
-                    Text("Don't have an account? ")
+                    RegisterView()
                 } label: {
                     Text("Don't have an account? SIGN UP")
                 }
@@ -51,7 +51,7 @@ struct LoginView: View {
             
         }
         .frame(maxWidth: .infinity,maxHeight: .infinity)
-        .background(.accent)
+        .background(.purple)
     }
 }
 
