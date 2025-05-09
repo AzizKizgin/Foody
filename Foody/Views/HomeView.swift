@@ -22,20 +22,27 @@ struct HomeView: View {
     }
     
     var body: some View {
-        ScrollView {
-            LazyVGrid(columns: [
-                GridItem(.flexible()),
-                GridItem(.flexible())
-            ], spacing: 8) {
-                ForEach(viewModel.categories) { category in
-                    CategoryItem(category: category)
+        NavigationStack {
+            ScrollView {
+                LazyVGrid(columns: [
+                    GridItem(.flexible()),
+                    GridItem(.flexible())
+                ], spacing: 8) {
+                    ForEach(viewModel.categories) { category in
+                        NavigationLink(value: category) {
+                            CategoryItem(category: category)
+                        }
+                    }
                 }
             }
+            .navigationDestination(for: Category.self) { category in
+                
+            }
+            .onAppear {
+                viewModel.getAllCategories()
+            }
         }
-        .onAppear {
-            viewModel.getAllCategories()
-        }
-    } 
+    }
 }
 
 #Preview {
