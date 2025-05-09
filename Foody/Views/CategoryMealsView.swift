@@ -8,10 +8,10 @@
 import SwiftUI
 
 struct CategoryMealsView: View {
-    let category: String
+    let category: Category
     @StateObject private var viewModel: CategoryMealsViewModel
     
-    init(viewModel: CategoryMealsViewModel? = nil, category: String) {
+    init(viewModel: CategoryMealsViewModel? = nil, category: Category) {
         self.category = category
         if let viewModel = viewModel {
             _viewModel = StateObject(wrappedValue: viewModel)
@@ -23,31 +23,33 @@ struct CategoryMealsView: View {
         }
     }
     var body: some View {
-        NavigationStack {
-            ScrollView {
-                LazyVGrid(columns: [
-                    GridItem(.flexible()),
-                    GridItem(.flexible())
-                ], spacing: 8) {
-                    ForEach(viewModel.meals) { meal in
-                        NavigationLink(value: meal) {
-                            MealItem(meal: meal)
-                        }
+        ScrollView {
+            LazyVGrid(columns: [
+                GridItem(.flexible()),
+                GridItem(.flexible())
+            ], spacing: 8) {
+                ForEach(viewModel.meals) { meal in
+                    NavigationLink(value: meal) {
+                        MealItem(meal: meal)
                     }
                 }
             }
-            .navigationDestination(for: Meal.self) { meal in
-                
-            }
-            .onAppear {
-                viewModel.getAllCategoryMeals(category: category)
-            }
         }
+        .navigationDestination(for: Meal.self) { meal in
+        
+        }
+        .onAppear {
+            viewModel.getAllCategoryMeals(category: category.name)
+        }
+        
     }
 }
 
 #Preview {
     let vm = CategoryMealsViewModel(service: MockFoodService())
-    CategoryMealsView(viewModel: vm, category: "Beef")
+    CategoryMealsView(
+        viewModel: vm,
+        category: Category(id: "1", name: "1", image: "", desc: "")
+    )
 
 }

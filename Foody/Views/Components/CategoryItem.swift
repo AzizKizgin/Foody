@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct CategoryItem: View {
-    @State private var showDesc: Bool = false
     let category: Category
     var body: some View {
         VStack {
@@ -16,36 +15,26 @@ struct CategoryItem: View {
                 of: "\\/",
                 with: "/"
             )
-            
-            if showDesc {
-                Text(category.desc)
-                    .frame(
-                        maxWidth: .infinity,
-                        maxHeight: .infinity
-                    )
-                    .multilineTextAlignment(.center)
-
-            }
-            else {
-                AsyncImage(url: URL(string: fixedUrl)) { phase in
-                    switch phase {
-                    case .success(let image):
-                        image
-                            .resizable()
-                            .scaledToFit()
-                            .frame(
-                                maxHeight: .infinity
-                            )
-                    default:
-                        Image("placeholder")
-                            .resizable()
-                            .scaledToFit()
-                            .frame(
-                                maxHeight: .infinity
-                            )
-                    }
+   
+            AsyncImage(url: URL(string: fixedUrl)) { phase in
+                switch phase {
+                case .success(let image):
+                    image
+                        .resizable()
+                        .scaledToFit()
+                        .frame(
+                            maxHeight: .infinity
+                        )
+                default:
+                    Image("placeholder")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(
+                            maxHeight: .infinity
+                        )
                 }
             }
+            
             Text(category.name)
                 .padding(.vertical, 10)
         }
@@ -53,19 +42,8 @@ struct CategoryItem: View {
             RoundedRectangle(cornerRadius: 12)
                 .stroke(Color.gray.opacity(0.2), lineWidth: 1)
         )
-        .overlay(alignment: .topTrailing, content: {
-            Button {
-                showDesc.toggle()
-            } label: {
-                Image(systemName: showDesc ? "x.circle.fill":  "questionmark.circle.fill")
-                    .font(.title)
-                    .padding()
-            }
-
-        })
         .shadow(color: Color.primary.opacity(0.2), radius: 5, x: 0, y: 2)
         .padding(10)
-        .animation(.snappy, value: showDesc)
     }
 }
 

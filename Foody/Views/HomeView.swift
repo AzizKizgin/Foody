@@ -36,7 +36,7 @@ struct HomeView: View {
                 }
             }
             .navigationDestination(for: Category.self) { category in
-                
+                CategoryMealsView(category: category)
             }
             .onAppear {
                 viewModel.getAllCategories()
