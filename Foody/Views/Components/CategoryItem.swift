@@ -19,11 +19,12 @@ struct CategoryItem: View {
             
             if showDesc {
                 Text(category.desc)
-                    .multilineTextAlignment(.center)
                     .frame(
                         maxWidth: .infinity,
                         maxHeight: .infinity
                     )
+                    .multilineTextAlignment(.center)
+
             }
             else {
                 AsyncImage(url: URL(string: fixedUrl)) { phase in
