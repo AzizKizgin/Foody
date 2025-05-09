@@ -7,37 +7,40 @@
 
 import SwiftUI
 
+import SwiftUI
+
 struct MealItem: View {
     let meal: Meal
-    var body: some View {
-        VStack {
-            let fixedUrl = meal.image?.replacingOccurrences(
-                of: "\\/",
-                with: "/"
-            )
 
+    var body: some View {
+        let fixedUrl = meal.image?.replacingOccurrences(of: "\\/", with: "/")
+
+        VStack(spacing: 0) {
             AsyncImage(url: URL(string: fixedUrl ?? "")) { phase in
                 switch phase {
                 case .success(let image):
                     image
                         .resizable()
                         .scaledToFit()
-                        .frame(
-                            maxHeight: .infinity
-                        )
+                        .frame(maxWidth: .infinity)
+                        .clipped()
                 default:
                     Image("placeholder")
                         .resizable()
                         .scaledToFit()
-                        .frame(
-                            maxHeight: .infinity
-                        )
+                        .frame(maxWidth: .infinity)
+                        .clipped()
                 }
             }
-          
+
             Text(meal.name)
                 .padding(.vertical, 10)
+                .frame(maxWidth: .infinity, alignment: .center)
+                .background(Color.white)
+                .lineLimit(1)
         }
+        .background(Color.white)
+        .cornerRadius(12)
         .overlay(
             RoundedRectangle(cornerRadius: 12)
                 .stroke(Color.gray.opacity(0.2), lineWidth: 1)
@@ -46,6 +49,7 @@ struct MealItem: View {
         .padding(10)
     }
 }
+
 
 #Preview {
     MealItem(

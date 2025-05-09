@@ -37,7 +37,7 @@ struct CategoryMealsView: View {
         }
         .navigationTitle(category.name)
         .navigationDestination(for: Meal.self) { meal in
-        
+            MealDetailView(mealID: meal.id)
         }
         .onAppear {
             viewModel.getAllCategoryMeals(category: category.name)
