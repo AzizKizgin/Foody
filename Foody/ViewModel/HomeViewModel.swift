@@ -25,17 +25,17 @@ class HomeViewModel: ObservableObject {
         self.isLoading = true
         service.getAllCategories()
             .handleEvents(receiveCompletion: { [weak self] _ in
-                print(0)
+                
                 self?.isLoading = false
             })
             .sink { [weak self] result in
                 guard let self = self else { return }
-                print(1)
+                
                 if case let .failure(error) = result {
                     self.setError(error.localizedDescription)
                 }
             } receiveValue: { [weak self] value in
-                print(2)
+                
                 self?.categories = value.categories
             }
             .store(in: &cancellables)
