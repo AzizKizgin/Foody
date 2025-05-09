@@ -119,8 +119,8 @@ struct Meal : Decodable, Hashable, Identifiable {
     }
     
     init(
-        id: String,
-        name: String,
+        id: String = "",
+        name: String = "",
         drinkAlternate: String? = nil,
         category: String? = nil,
         area: String? = nil,
