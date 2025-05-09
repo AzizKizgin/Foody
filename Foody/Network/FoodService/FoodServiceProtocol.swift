@@ -10,7 +10,7 @@ import Combine
 
 protocol FoodServiceProtocol {
     func getAllCategories() -> AnyPublisher<CategoriesResponse, Error>
-    func getMealByCategory(category: String) -> AnyPublisher<MealsResponse, Error>
+    func getMealsByCategory(category: String) -> AnyPublisher<MealsResponse, Error>
     func getMealByID(id: String) -> AnyPublisher<MealsResponse, Error>
     func getMealByMainIngredient(ingredient: String) -> AnyPublisher<MealsResponse, Error>
 }

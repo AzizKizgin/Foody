@@ -9,7 +9,7 @@ import Foundation
 import Combine
 
 class FoodService: FoodServiceProtocol {
-    let baseURL = "www.themealdb.com/api/json/v1/1"
+    let baseURL = "https://www.themealdb.com/api/json/v1/1"
     
     func getAllCategories() -> AnyPublisher<CategoriesResponse, any Error> {
         return URLSession.shared
@@ -17,6 +17,7 @@ class FoodService: FoodServiceProtocol {
             .map(\.data)
             .decode(type: CategoriesResponse.self, decoder: JSONDecoder())
             .mapError { error in
+                print(error)
                 if error is DecodingError {
                     return NetworkError.decodingError
                 }
@@ -26,7 +27,7 @@ class FoodService: FoodServiceProtocol {
             .eraseToAnyPublisher()
     }
 
-    func getMealByCategory(category: String) -> AnyPublisher<MealsResponse, any Error> {
+    func getMealsByCategory(category: String) -> AnyPublisher<MealsResponse, any Error> {
         return URLSession.shared
             .dataTaskPublisher(
                 for: URL(string: "\(baseURL)/filter.php?c=\(category)")!
