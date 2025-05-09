@@ -21,5 +21,8 @@ class DIContainer {
         container.register(AuthServiceProtocol.self) { _ in
             AuthService()
         }
+        container.register(FoodServiceProtocol.self) { _ in
+            FoodService()
+        }
     }
 }
