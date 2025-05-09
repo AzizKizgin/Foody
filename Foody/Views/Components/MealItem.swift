@@ -38,6 +38,16 @@ struct MealItem: View {
                 .frame(maxWidth: .infinity, alignment: .center)
                 .background(Color.white)
                 .lineLimit(1)
+            HStack {
+                Text("\(meal.name.count)$")
+                    .padding(5)
+                Spacer()
+                Button("", systemImage: "plus.circle.fill") {
+                    
+                }
+                .font(.title)
+            }
+            .padding(5)
         }
         .background(Color.white)
         .cornerRadius(12)
