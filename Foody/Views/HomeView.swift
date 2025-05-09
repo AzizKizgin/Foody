@@ -35,6 +35,7 @@ struct HomeView: View {
                     }
                 }
             }
+            .navigationTitle("Categories")
             .navigationDestination(for: Category.self) { category in
                 CategoryMealsView(category: category)
             }

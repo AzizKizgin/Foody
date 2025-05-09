@@ -35,6 +35,7 @@ struct CategoryMealsView: View {
                 }
             }
         }
+        .navigationTitle(category.name)
         .navigationDestination(for: Meal.self) { meal in
         
         }
