@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct ContentView: View {
+    @StateObject var cartManager = CartManager()
     @State private var showSplash = true
     @AppStorage("showOnboard") private var showOnboard: Bool = true
     @AppStorage("isLogin") private var islogin = false
@@ -27,15 +28,22 @@ struct ContentView: View {
                 OnboardingScreen(onClose: {showOnboard.toggle()})
             }
             else if islogin {
-                HomeView()
+                NavigationStack {
+                    HomeView()
+                        
+                        .toolbarCart()
+                }
             }
             else {
                 LoginView()
             }
         }
+        .environmentObject(cartManager)
     }
 }
 
 #Preview {
+    @Previewable @StateObject var cartManager = CartManager()
     ContentView()
+        .environmentObject(cartManager)
 }

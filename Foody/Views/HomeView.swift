@@ -22,7 +22,7 @@ struct HomeView: View {
     }
     
     var body: some View {
-        NavigationStack {
+        
             ScrollView {
                 LazyVGrid(columns: [
                     GridItem(.flexible()),
@@ -42,11 +42,13 @@ struct HomeView: View {
             .onAppear {
                 viewModel.getAllCategories()
             }
-        }
+        
     }
 }
 
 #Preview {
     let vm = HomeViewModel(service: MockFoodService())
-    HomeView(viewModel: vm)
+    NavigationStack {
+        HomeView(viewModel: vm)
+    }
 }

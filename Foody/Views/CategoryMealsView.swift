@@ -35,9 +35,11 @@ struct CategoryMealsView: View {
                 }
             }
         }
+        .toolbarCart()
         .navigationTitle(category.name)
         .navigationDestination(for: Meal.self) { meal in
             MealDetailView(mealID: meal.id)
+                .toolbarCart()
         }
         .onAppear {
             viewModel.getAllCategoryMeals(category: category.name)
@@ -47,10 +49,14 @@ struct CategoryMealsView: View {
 }
 
 #Preview {
+    @Previewable @StateObject var cartManager = CartManager()
+   
+       
     let vm = CategoryMealsViewModel(service: MockFoodService())
     CategoryMealsView(
         viewModel: vm,
         category: Category(id: "1", name: "1", image: "", desc: "")
     )
+    .environmentObject(cartManager)
 
 }
