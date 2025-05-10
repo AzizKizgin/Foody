@@ -47,8 +47,10 @@ struct HomeView: View {
 }
 
 #Preview {
+    @Previewable @StateObject var cartManager = CartManager()
     let vm = HomeViewModel(service: MockFoodService())
     NavigationStack {
         HomeView(viewModel: vm)
+            .environmentObject(cartManager)
     }
 }

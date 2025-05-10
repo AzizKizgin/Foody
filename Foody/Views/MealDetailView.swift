@@ -80,8 +80,10 @@ struct MealDetailView: View {
 
 
 #Preview {
+    @Previewable @StateObject var cartManager = CartManager()
     let vm = MealDetailViewModel(service: MockFoodService())
     NavigationStack {
         MealDetailView(viewModel: vm, mealID: "52772")
+            .environmentObject(cartManager)
     }
 }

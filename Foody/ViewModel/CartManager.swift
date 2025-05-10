@@ -9,35 +9,43 @@ import Foundation
 
 class CartManager: ObservableObject {
     @Published var showSuccess: Bool = false
-    @Published var items: Set<Meal> = Set()
+    @Published var items: [Meal: Int] = [:]
     var totalCount: Int {
-        items.count
+        items.values.reduce(0, +)
     }
 
     var totalPrice: Double {
-        Double(items.reduce(0) { $0 + $1.name.count })
+        items.reduce(0) { $0 + (Double($1.key.name.count) * Double($1.value)) }
     }
     
     func addToCart(item: Meal) {
-        items.insert(item)
+        if let currentCount = items[item] {
+            items[item] = currentCount + 1
+        } else {
+            items[item] = 1
+        }
     }
     
     func removeFromCart(item: Meal) {
-        items.remove(item)
+        if let currentCount = items[item], currentCount > 1 {
+            items[item] = currentCount - 1
+        } else {
+            items.removeValue(forKey: item)
+        }
     }
     
     func clearAll() {
         items.removeAll()
     }
-    
+   
     func buy() {
-        DispatchQueue.main.async {
-            self.showSuccess = true
-            self.clearAll()
-            
-            DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
-                self.showSuccess = false
-            }
+        showSuccess = true
+        clearAll()
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+            self.showSuccess = false
         }
     }
 }
+
+

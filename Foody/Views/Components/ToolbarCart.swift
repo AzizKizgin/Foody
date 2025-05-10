@@ -14,15 +14,15 @@ struct ToolbarCart: ViewModifier {
         content
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
-                    Button(action: {
-                        // Handle cart tap action
-                    }) {
+                    NavigationLink {
+                        CartDetailView()
+                    } label: {
                         ZStack(alignment: .topTrailing) {
                             Image(systemName: cartManager.items.isEmpty ? "cart" : "cart.fill")
                                 .font(.title2)
 
                             if !cartManager.items.isEmpty {
-                                Text("\(cartManager.items.count)")
+                                Text("\(cartManager.totalCount)")
                                     .font(.caption2)
                                     .foregroundColor(.white)
                                     .padding(5)
@@ -32,6 +32,7 @@ struct ToolbarCart: ViewModifier {
                             }
                         }
                     }
+
                 }
             }
     }

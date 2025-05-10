@@ -10,6 +10,7 @@ import SwiftUI
 import SwiftUI
 
 struct MealItem: View {
+    @EnvironmentObject var cartManager: CartManager
     let meal: Meal
 
     var body: some View {
@@ -43,7 +44,7 @@ struct MealItem: View {
                     .padding(5)
                 Spacer()
                 Button("", systemImage: "plus.circle.fill") {
-                    
+                    cartManager.addToCart(item: meal)
                 }
                 .font(.title)
             }
@@ -62,10 +63,12 @@ struct MealItem: View {
 
 
 #Preview {
+    @Previewable @StateObject var cartManager = CartManager()
     MealItem(
         meal: Meal(
             id: "1",
             name: "1"
         )
     )
+    .environmentObject(cartManager)
 }
